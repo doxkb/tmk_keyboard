@@ -41,5 +41,6 @@ void phex(unsigned char c);
 void phex16(unsigned int i);
 void pbin(unsigned char c);
 void pbin_reverse(unsigned char c);
+void pbin_reverse16(unsigned char c);
 
 #endif

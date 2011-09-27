@@ -91,3 +91,11 @@ void pbin_reverse(unsigned char c)
         sendchar((c & (1<<i)) ? '1' : '0');
     }
 }
+
+void pbin_reverse16(unsigned char c)
+{
+    if (!print_enable) return;
+    for (int i = 0; i < 8; i++) {
+        sendchar((c & (1<<i)) ? '1' : '0');
+    }
+}

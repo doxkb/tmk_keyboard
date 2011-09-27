@@ -29,10 +29,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* matrix size */
-#define MATRIX_ROWS 9
-#define MATRIX_COLS 8
+#define MATRIX_ROWS 14
+#define MATRIX_COLS 6
 /* define if matrix has ghost */
-#define MATRIX_HAS_GHOST
+//#define MATRIX_HAS_GHOST
 
 
 /* key combination for command */

@@ -26,6 +26,14 @@ int bitpop(uint8_t bits)
     return c;
 }
 
+int bitpop16(uint16_t bits)
+{
+    int c;
+    for (c = 0; bits; c++)
+        bits &= bits -1;
+    return c;
+}
+
 // most significant on-bit
 int biton(uint8_t bits)
 {

@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 int bitpop(uint8_t bits);
+int bitpop16(uint16_t bits);
 int biton(uint8_t bits);
 
 #endif
