@@ -59,73 +59,73 @@ static void select_row(uint8_t row);
 inline
 uint8_t matrix_rows(void)
 {
-    return MATRIX_ROWS;
+	return MATRIX_ROWS;
 }
 
 inline
 uint8_t matrix_cols(void)
 {
-    return MATRIX_COLS;
+	return MATRIX_COLS;
 }
 
 void matrix_init(void)
 {
-    // initialize row and col
-    unselect_rows();
-    // Input with pull-up(DDR:0, PORT:1)
-    DDRB = 0x00;
-    PORTB = 0xFF;
+	// initialize row and col
+	unselect_rows();
+	// Input with pull-up(DDR:0, PORT:1)
+	DDRB = 0x00;
+	PORTB = 0xFF;
 
-    // initialize matrix state: all keys off
-    for (uint8_t i=0; i < MATRIX_ROWS; i++) _matrix0[i] = 0x00;
-    for (uint8_t i=0; i < MATRIX_ROWS; i++) _matrix1[i] = 0x00;
-    matrix = _matrix0;
-    matrix_prev = _matrix1;
+	// initialize matrix state: all keys off
+	for (uint8_t i=0; i < MATRIX_ROWS; i++) _matrix0[i] = 0x00;
+	for (uint8_t i=0; i < MATRIX_ROWS; i++) _matrix1[i] = 0x00;
+	matrix = _matrix0;
+	matrix_prev = _matrix1;
 }
 
 uint8_t matrix_scan(void)
 {
-    uint8_t *tmp;
+	uint8_t *tmp;
 
-    tmp = matrix_prev;
-    matrix_prev = matrix;
-    matrix = tmp;
+	tmp = matrix_prev;
+	matrix_prev = matrix;
+	matrix = tmp;
 
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        unselect_rows();
-        select_row(i);
-        _delay_us(100);  // without this wait read unstable value.
-        matrix[i] = ~read_col();
-    }
-    unselect_rows();
-    return 1;
+	for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+		unselect_rows();
+		select_row(i);
+		_delay_us(30);  // without this wait read unstable value.
+		matrix[i] = ~read_col();
+	}
+	unselect_rows();
+	return 1;
 }
 
 bool matrix_is_modified(void)
 {
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        if (matrix[i] != matrix_prev[i])
-            return true;
-    }
-    return false;
+	for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+		if (matrix[i] != matrix_prev[i])
+			return true;
+	}
+	return false;
 }
 
 inline
 bool matrix_has_ghost(void)
 {
 #ifdef MATRIX_HAS_GHOST
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        if (matrix_has_ghost_in_row(i))
-            return true;
-    }
+	for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+		if (matrix_has_ghost_in_row(i))
+			return true;
+	}
 #endif
-    return false;
+	return false;
 }
 
 inline
 bool matrix_is_on(uint8_t row, uint8_t col)
 {
-    return (matrix[row] & (1<<col));
+	return (matrix[row] & (1<<col));
 }
 
 inline
@@ -135,62 +135,62 @@ uint8_t matrix_get_row(uint8_t row)
 uint16_t matrix_get_row(uint8_t row)
 #endif
 {
-    return matrix[row];
+	return matrix[row];
 }
 
 void matrix_print(void)
 {
-    print("\nr/c 01234567\n");
-    for (uint8_t row = 0; row < matrix_rows(); row++) {
-        phex(row); print(": ");
+	print("\nr/c 01234567\n");
+	for (uint8_t row = 0; row < matrix_rows(); row++) {
+		phex(row); print(": ");
 #if (MATRIX_COLS <= 8)
-        pbin_reverse(matrix_get_row(row));
+		pbin_reverse(matrix_get_row(row));
 #else
-        pbin_reverse16(matrix_get_row(row));
+		pbin_reverse16(matrix_get_row(row));
 #endif
 #ifdef MATRIX_HAS_GHOST
-        if (matrix_has_ghost_in_row(row)) {
-            print(" <ghost");
-        }
+		if (matrix_has_ghost_in_row(row)) {
+			print(" <ghost");
+		}
 #endif
-        print("\n");
-    }
+		print("\n");
+	}
 }
 
 uint8_t matrix_key_count(void)
 {
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+	uint8_t count = 0;
+	for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
 #if (MATRIX_COLS <= 8)
-        count += bitpop(matrix[i]);
+		count += bitpop(matrix[i]);
 #else
-        count += bitpop16(matrix[i]);
+		count += bitpop16(matrix[i]);
 #endif
-    }
-    return count;
+	}
+	return count;
 }
 
 #ifdef MATRIX_HAS_GHOST
 inline
 static bool matrix_has_ghost_in_row(uint8_t row)
 {
-    // no ghost exists in case less than 2 keys on
-    if (((matrix[row] - 1) & matrix[row]) == 0)
-        return false;
+	// no ghost exists in case less than 2 keys on
+	if (((matrix[row] - 1) & matrix[row]) == 0)
+		return false;
 
-    // ghost exists in case same state as other row
-    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
-        if (i != row && (matrix[i] & matrix[row]) == matrix[row])
-            return true;
-    }
-    return false;
+	// ghost exists in case same state as other row
+	for (uint8_t i=0; i < MATRIX_ROWS; i++) {
+		if (i != row && (matrix[i] & matrix[row]) == matrix[row])
+			return true;
+	}
+	return false;
 }
 #endif
 
 inline
 static uint8_t read_col(void)
 {
-    return PINB;
+	return PINB;
 }
 
 inline
@@ -198,7 +198,7 @@ static void unselect_rows(void)
 {
 DDRC  = 0x00; DDRD  = 0x00; DDRF  = 0x00;
 PORTC = 0x00; PORTD = 0x00; PORTF = 0x00; 
-    // Hi-Z(DDR:0, PORT:0) to unselect
+	// Hi-Z(DDR:0, PORT:0) to unselect
  //   DDRC  &= ~0b11000000; // PC: 7,6
  //   PORTC &= ~0b11000000;
  //   DDRD  &= ~0b11000111; // PD: 7,6,2,1,0
@@ -210,65 +210,65 @@ PORTC = 0x00; PORTD = 0x00; PORTF = 0x00;
 inline
 static void select_row(uint8_t row)
 {
-    // Output low(DDR:1, PORT:0) to select
-    // row: 0    1    2    3    4    5    6    7    8
-    // pin: PD0, PD1, PD2, PD3, PD4, PC6, PD7, PD6, PF0
-    switch (row) {
-        case 0:
-            DDRD  |= (1<<0);
-            PORTD &= ~(1<<0);
-            break;
-        case 1:
-            DDRD  |= (1<<1);
-            PORTD &= ~(1<<1);
-            break;
-        case 2:
-            DDRD  |= (1<<2);
-            PORTD &= ~(1<<2);
-            break;
-        case 3:
-            DDRD  |= (1<<3);
-            PORTD &= ~(1<<3);
-            break;
-        case 4:
-            DDRD  |= (1<<4);
-            PORTD &= ~(1<<4);
-            break;
-        case 5:
-            DDRC  |= (1<<6);
-            PORTC &= ~(1<<6);
-            break;
-        case 6:
-            DDRD  |= (1<<7);
-            PORTD &= ~(1<<7);
-            break;
-        case 7:
-            DDRD  |= (1<<6);
-            PORTD &= ~(1<<6);
-            break;
-        case 8:
-            DDRF  |= (1<<0);
-            PORTF &= ~(1<<0);
-            break;
+	// Output low(DDR:1, PORT:0) to select
+	// row: 0    1    2    3    4    5    6    7    8	 9	  10   11	12	 13
+	// pin: PD0, PD1, PD2, PD3, PD4, PC6, PD7, PD6, PF0, PF1, PF4, PF5, PF7, PF6
+	switch (row) {
+		case 0:
+			DDRD  |= (1<<0);
+			PORTD &= ~(1<<0);
+			break;
+		case 1:
+			DDRD  |= (1<<1);
+			PORTD &= ~(1<<1);
+			break;
+		case 2:
+			DDRD  |= (1<<2);
+			PORTD &= ~(1<<2);
+			break;
+		case 3:
+			DDRD  |= (1<<3);
+			PORTD &= ~(1<<3);
+			break;
+		case 4:
+			DDRD  |= (1<<4);
+			PORTD &= ~(1<<4);
+			break;
+		case 5:
+			DDRC  |= (1<<6);
+			PORTC &= ~(1<<6);
+			break;
+		case 6:
+			DDRD  |= (1<<7);
+			PORTD &= ~(1<<7);
+			break;
+		case 7:
+			DDRD  |= (1<<6);
+			PORTD &= ~(1<<6);
+			break;
+		case 8:
+			DDRF  |= (1<<0);
+			PORTF &= ~(1<<0);
+			break;
 		case 9:
-            DDRF  |= (1<<1);
-            PORTF &= ~(1<<1);
-            break;
+			DDRF  |= (1<<1);
+			PORTF &= ~(1<<1);
+			break;
 		case 10:
-            DDRF  |= (1<<4);
-            PORTF &= ~(1<<4);
-            break;
+			DDRF  |= (1<<4);
+			PORTF &= ~(1<<4);
+			break;
 		case 11:
-            DDRF  |= (1<<5);
-            PORTF &= ~(1<<5);
-            break;
+			DDRF  |= (1<<5);
+			PORTF &= ~(1<<5);
+			break;
 		case 12:
-            DDRF  |= (1<<7);
-            PORTF &= ~(1<<7);
-            break;
+			DDRF  |= (1<<7);
+			PORTF &= ~(1<<7);
+			break;
 		case 13:
-            DDRF  |= (1<<6);
-            PORTF &= ~(1<<6);
-            break;
-    }
+			DDRF  |= (1<<6);
+			PORTF &= ~(1<<6);
+			break;
+	}
 }
