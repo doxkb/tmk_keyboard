@@ -23,9 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0xBEE0
-#define MANUFACTURER    t.m.k.
-#define PRODUCT         Macway mod
-#define DESCRIPTION     t.m.k. keyboard firmware for Macway mod
+#define MANUFACTURER    Dox
+#define PRODUCT         DoxKB
+#define DESCRIPTION     t.m.k. keyboard firmware for DoxKB
 
 
 /* matrix size */
@@ -33,6 +33,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 6
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
+
+/* Set 0 if need no debouncing */
+#define DEBOUNCE    5
 
 
 /* key combination for command */
