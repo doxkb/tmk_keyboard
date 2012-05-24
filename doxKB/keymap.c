@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/* 
+/*
  * Keymap for Macway mod
  */
 #include <stdint.h>
@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "util.h"
 #include "keymap.h"
-
 
 // Convert physical keyboard layout to matrix array.
 // This is a macro to define keymap easily in keyboard layout form.
@@ -54,7 +53,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 }
 
 #define KEYCODE(layer, row, col) (pgm_read_byte(&keymaps[(layer)][(row)][(col)]))
-
 
 // Assign Fn key(0-7) to a layer to which switch with the Fn key pressed.
 static const uint8_t PROGMEM fn_layer[] = {
@@ -99,8 +97,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			KB_TAB,		KB_Q,		KB_W,	KB_E,	KB_R,	KB_T,	KB_Y,	KB_U,	KB_I,		KB_O,		KB_P,		KB_LBRC,	KB_RBRC,	KB_BSPC, \
 			KB_LCTL,	KB_A,		KB_S,	KB_D,	KB_F,	KB_G,	KB_H,	KB_J,	KB_K,		KB_L,		KB_FN3,		KB_QUOT,				KB_ENT, \
 			KB_LSFT,	KB_Z,		KB_X,	KB_C,	KB_V,	KB_B,	KB_N,	KB_M,	KB_COMM,	KB_DOT,		KB_FN2,					KB_RSFT,	KB_FN1, \
-			KB_FN7,		KB_LGUI,	KB_LALT,				KB_FN4,								KB_RALT,	KB_RGUI,				KB_RCTL,	KB_DEL),
-	
+			KB_FN7,		KB_LGUI,	KB_LALT,				KB_FN4,								KB_RALT,	KB_RGUI,				KB_APP,		KB_DEL),
 
     /* Layer 1: HHKB mode (HHKB Fn)
      * ,-----------------------------------------------------------.
@@ -114,13 +111,12 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |   |Gui |Alt  |                      |Alt  |Gui|   |   |Ctr|
      * `-----------------------------------------------------------'
-     */ 
+     */
     KEYMAP(KB_ESC, KB_F1,  KB_F2,  KB_F3,  KB_F4,  KB_F5,  KB_F6,  KB_F7,  KB_F8,  KB_F9,  KB_F10, KB_F11, KB_F12, KB_INS, KB_DEL, \
            KB_CAPS,KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_PSCR,KB_SLCK,KB_BRK, KB_UP,  KB_NO, KB_BSPC, \
            KB_LCTL,KB_VOLD,KB_VOLU,KB_MUTE,KB_NO,  KB_NO,  KB_PAST,KB_PSLS,KB_HOME,KB_PGUP,KB_LEFT,KB_RGHT,KB_ENT, \
            KB_LSFT,KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_PPLS,KB_PMNS,KB_END, KB_PGDN,KB_DOWN,KB_RSFT,KB_FN1, \
-           KB_NO,  KB_LGUI,KB_LALT,KB_SPC, KB_RALT,KB_APP,  KB_RCTL,  KB_DEL),
-
+           KB_NO,  KB_LGUI,KB_LALT,KB_SPC, KB_RALT,KB_APP,  KB_APP,  KB_DEL),
 
     /* Layer 2: Vi mode (Quote/Rmeta)
      * ,-----------------------------------------------------------.
@@ -139,8 +135,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KB_BSLS,KB_HOME,KB_PGDN,KB_UP,  KB_PGUP,KB_END, KB_HOME,KB_PGDN,KB_PGUP,KB_END, KB_NO,  KB_NO,  KB_NO, KB_BSPC, \
            KB_LCTL,KB_NO,  KB_LEFT,KB_DOWN,KB_RGHT,KB_NO,  KB_LEFT,KB_DOWN,KB_UP,  KB_RGHT,KB_NO,  KB_NO,  KB_BSLS, \
            KB_LSFT,KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_FN2, KB_RSFT,KB_NO, \
-           KB_NO,  KB_LGUI,KB_LALT,KB_SPC, KB_RALT,KB_RGUI,KB_RCTL, KB_DEL),
-
+           KB_NO,  KB_LGUI,KB_LALT,KB_SPC, KB_RALT,KB_RGUI,KB_APP, KB_DEL),
 
     /* Layer 3: Mouse mode (Semicolon)
      * ,-----------------------------------------------------------.
@@ -154,14 +149,13 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |xxx|Gui |Alt  |Mb1                   |Alt  |   |   |   |   |
      * `-----------------------------------------------------------'
-     * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel 
+     * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel
      */
     KEYMAP(KB_GRV, KB_F1,  KB_F2,  KB_F3,  KB_F4,  KB_F5,  KB_F6,  KB_F7,  KB_F8,  KB_F9,  KB_F10, KB_F11, KB_F12, KB_GRV, KB_GRV, \
            KB_BSLS,KB_WH_L,KB_WH_D,KB_MS_U,KB_WH_U,KB_WH_R,KB_WH_L,KB_WH_D,KB_WH_U,KB_WH_R,KB_NO,  KB_NO,  KB_NO, KB_BSPC, \
            KB_LCTL,KB_NO,  KB_MS_L,KB_MS_D,KB_MS_R,KB_NO,  KB_MS_L,KB_MS_D,KB_MS_U,KB_MS_R,KB_FN3, KB_NO,  KB_BSLS, \
            KB_LSFT,KB_NO,  KB_NO,  KB_BTN1,KB_BTN2,KB_BTN3,KB_BTN2,KB_BTN1,KB_NO,  KB_NO,  KB_NO,  KB_RSFT,KB_NO, \
-           KB_FN7, KB_LGUI,KB_LALT,KB_BTN1,KB_RALT,KB_NO,  KB_RCTL,  KB_DEL),
-
+           KB_FN7, KB_LGUI,KB_LALT,KB_BTN1,KB_RALT,KB_NO,  KB_APP,  KB_DEL),
 
     /* Layer 4: Matias half keyboard style (Space)
      * ,-----------------------------------------------------------.
@@ -180,9 +174,8 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KB_BSPC,KB_P,   KB_O,   KB_I,   KB_U,   KB_Y,   KB_T,   KB_R,   KB_E,   KB_W,   KB_Q,   KB_TAB, KB_TAB, KB_BSPC, \
            KB_LCTL,KB_SCLN,KB_L,   KB_K,   KB_J,   KB_H,   KB_G,   KB_F,   KB_D,   KB_S,   KB_A,   KB_RCTL,KB_RCTL, \
            KB_LSFT,KB_SLSH,KB_DOT, KB_COMM,KB_M,   KB_N,   KB_B,   KB_V,   KB_C,   KB_X,   KB_Z,   KB_RSFT,KB_NO, \
-           KB_NO,  KB_LGUI,KB_LALT,KB_FN4, KB_RALT,KB_RGUI,KB_RCTL,  KB_DEL),
+           KB_NO,  KB_LGUI,KB_LALT,KB_FN4, KB_RALT,KB_RGUI,KB_APP,  KB_DEL),
 };
-
 
 uint8_t keymap_get_keycode(uint8_t layer, uint8_t row, uint8_t col)
 {

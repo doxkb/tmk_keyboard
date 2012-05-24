@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "timer.h"
 #include "layer.h"
 
-
 /*
  * Parameters:
  *     ENTER_DELAY         |=======|
@@ -69,18 +68,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 // LAYER_ENTER_DELAY: prevent from moving new layer
-#define LAYER_ENTER_DELAY 75
+#define LAYER_ENTER_DELAY 150
 
 // LAYER_SEND_FN_TERM: send keycode if release key in this term
 #define LAYER_SEND_FN_TERM 500
-
 
 uint8_t default_layer = 0;
 uint8_t current_layer = 0;
 
 static bool layer_used = false;
 static uint8_t new_layer(uint8_t fn_bits);
-
 
 uint8_t layer_get_keycode(uint8_t row, uint8_t col)
 {
@@ -99,7 +96,7 @@ void layer_switching(uint8_t fn_bits)
     // layer switching
     static uint8_t last_fn = 0;
     static uint8_t last_mods = 0;
-    static uint16_t last_timer = 0; 
+    static uint16_t last_timer = 0;
     static uint8_t sent_fn = 0;
 
     if (fn_bits == last_fn) { // Fn state is not changed
